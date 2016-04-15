@@ -23,9 +23,9 @@
 import json
 import xmltodict
 import requests
-from client import exception
-from client import utils
-from client.utils import SUCCESS
+from jcsclient import exception
+from jcsclient import utils
+from jcsclient.utils import SUCCESS
 
 class OutputFormat(object):
     """
@@ -49,6 +49,8 @@ class OutputFormat(object):
                     resp_dict = json.loads(response)
                 else:
                     resp_dict = response
+                if not request_id:
+                    request_id = utils.requestid_in_response(resp_dict)
                 resp_json = json.dumps(resp_dict, indent=4, sort_keys=True)
         except:
             try:
